@@ -130,7 +130,7 @@ button,input,textarea{font:inherit;color:inherit}
 .cta{display:flex;flex-wrap:wrap;gap:.9rem}
 
 .stage{position:relative;display:grid;place-items:center}
-.mach{position:relative;width:clamp(230px,19vw,290px);aspect-ratio:494/1128;transform-style:preserve-3d;will-change:transform}
+.mach{position:relative;width:clamp(230px,19vw,290px);aspect-ratio:494/1128;container-type:inline-size;will-change:transform}
 .mach-img{position:absolute;inset:0;background:var(--machine) center/100% 100% no-repeat;filter:drop-shadow(0 40px 50px rgba(0,0,0,.7)) drop-shadow(0 0 60px rgba(255,0,0,.25))}
 .mach-floor{position:absolute;left:-30%;right:-30%;bottom:-6%;height:12%;background:radial-gradient(closest-side,rgba(255,0,0,.55),transparent);filter:blur(12px);z-index:-1}
 .mach-refl{position:absolute;left:0;right:0;top:100%;height:30%;background:var(--machine) center bottom/100% 333% no-repeat;transform:scaleY(-1);opacity:.22;
@@ -139,17 +139,18 @@ button,input,textarea{font:inherit;color:inherit}
 .pin i{position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(255,0,0,.25)}
 .pin i::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--red);animation:ping 1.6s ease-out infinite}
 @keyframes ping{to{transform:scale(2.6);opacity:0}}
-.pin .card{position:absolute;top:-24px;display:grid;gap:.15rem;min-width:max-content;padding:.6rem .9rem .62rem;background:rgba(18,18,18,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.14);border-left:3px solid var(--red)}
+.pin .card{position:absolute;top:-24px;display:grid;gap:.15rem;min-width:max-content;padding:.6rem .9rem .62rem;background:#0c0c0c;
+  border:1px solid rgba(255,255,255,.18);border-left:3px solid var(--red);box-shadow:0 10px 24px rgba(0,0,0,.5)}
 .pin .card b{font:700 1.02rem/1 var(--f-cond);font-style:italic;text-transform:uppercase;letter-spacing:.05em}
 .pin .card small{font:500 .72rem/1.2 var(--f-mono);color:var(--silver);letter-spacing:.02em}
 .pin .card::before{content:"";position:absolute;top:24px;width:46px;height:1px;background:rgba(255,255,255,.5)}
-.pin.r .card{left:52px}.pin.r .card::before{right:100%}
-.pin.l .card{right:52px}.pin.l .card::before{left:100%}
+/* desktop: every label sits outside the machine, joined to its dot by a line */
+.pin.r .card{left:calc((1 - var(--xn)) * 100cqw + 26px)}.pin.r .card::before{right:100%;width:calc((1 - var(--xn)) * 100cqw + 26px)}
+.pin.l .card{right:calc(var(--xn) * 100cqw + 26px)}.pin.l .card::before{left:100%;width:calc(var(--xn) * 100cqw + 26px)}
 .pin{opacity:0;transition:opacity .45s}
 .pin .card{transform:translateY(8px);transition:transform .45s var(--ease)}
 .pin.on{opacity:1}.pin.on .card{transform:none}
-@media (max-width:1200px){.pin.r .card{left:auto;right:52px}.pin.r .card::before{right:auto;left:100%}}
+@media (max-width:1200px){.pin.r .card{left:auto;right:calc(var(--xn) * 100cqw + 26px)}.pin.r .card::before{right:auto;left:100%;width:calc(var(--xn) * 100cqw + 26px)}}
 .hero-foot{position:absolute;left:0;right:0;bottom:52px}
 .hero-foot .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem}
 .hero-facts{display:flex;flex-wrap:wrap;gap:.4rem 1.8rem;font:600 1rem/1.2 var(--f-cond);text-transform:uppercase;letter-spacing:.16em;color:var(--silver)}
@@ -366,10 +367,10 @@ fieldset.field{border:0;margin:0;padding:0}
         <div class="mach-floor"></div>
         <div class="mach-img" role="img" aria-label="Elite Vend smart market: a black glass-door fridge with the Elite Vend logo, a card reader and stocked shelves"></div>
         <div class="mach-refl" aria-hidden="true"></div>
-        <div class="pin r on" style="--x:65.8%;--y:37.7%" aria-hidden="true"><i></i><div class="card"><b>Tap</b><small>Card approved</small></div></div>
-        <div class="pin l" style="--x:58%;--y:20.5%" aria-hidden="true"><i></i><div class="card"><b>Open</b><small>Door unlocked</small></div></div>
-        <div class="pin r" style="--x:67.8%;--y:48%" aria-hidden="true"><i></i><div class="card"><b>Grab</b><small>Cola detected · +$2.50</small></div></div>
-        <div class="pin l" style="--x:61%;--y:84%" aria-hidden="true"><i></i><div class="card"><b>Go</b><small>Charged $2.50 · receipt sent</small></div></div>
+        <div class="pin r on" style="--x:65.8%;--xn:.658;--y:37.7%" aria-hidden="true"><i></i><div class="card"><b>Tap</b><small>Card approved</small></div></div>
+        <div class="pin l" style="--x:58%;--xn:.58;--y:20.5%" aria-hidden="true"><i></i><div class="card"><b>Open</b><small>Door unlocked</small></div></div>
+        <div class="pin r" style="--x:67.8%;--xn:.678;--y:48%" aria-hidden="true"><i></i><div class="card"><b>Grab</b><small>Cola detected · +$2.50</small></div></div>
+        <div class="pin l" style="--x:61%;--xn:.61;--y:84%" aria-hidden="true"><i></i><div class="card"><b>Go</b><small>Charged $2.50 · receipt sent</small></div></div>
       </div>
     </div>
   </div>
