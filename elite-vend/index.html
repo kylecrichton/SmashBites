@@ -169,7 +169,11 @@ button,input,textarea{font:inherit;color:inherit}
   .hero-copy .cta{grid-area:cta}
   .stage{grid-area:stage;min-height:0;padding-block:0;align-self:center}
   .mach{width:clamp(118px,26vw,240px)}
-  .pin .card{display:none}
+  .pin.r .card,.pin.l .card{left:0;right:auto;top:auto;bottom:16px;translate:-50% 0;min-width:0;width:max-content;max-width:min(150%,190px);text-align:center;border-left:1px solid rgba(255,255,255,.14);border-bottom:3px solid var(--red);padding:.4rem .55rem}
+  .pin .card::before{display:none}
+  .pin .card{background:rgba(10,10,10,.94)}
+  .pin .card b{font-size:.9rem}
+  .pin .card small{font-size:.62rem;white-space:normal}
   .hero-glow{right:-20%;top:auto;bottom:0;translate:0 0;width:120vw}
   .slash{width:110vw}
   .scroll-cue{display:none}
@@ -179,6 +183,8 @@ button,input,textarea{font:inherit;color:inherit}
   .mach{width:33vw}
   .hero h1{font-size:clamp(2.5rem,12.4vw,3.6rem)}
   .pin i{left:-5px;top:-5px;width:10px;height:10px}
+  .pin .card b{font-size:.85rem}.pin .card small{font-size:.64rem;line-height:1.25}
+  .pin.r .card,.pin.l .card{max-width:132px;padding:.35rem .45rem}
 }
 
 /* ticker */
@@ -193,7 +199,7 @@ button,input,textarea{font:inherit;color:inherit}
 
 /* vision */
 .vision{position:relative;padding-block:clamp(6rem,12vw,10rem);background:var(--coal);overflow:clip}
-.vision .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:center}
+.vision .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,6rem);align-items:end}
 .vision-copy{display:grid;gap:1.6rem;justify-items:start}
 .facts{display:grid;gap:0;width:100%;margin-top:.6rem}
 .facts li{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:.2rem 1rem;padding-block:1.1rem;border-top:1px solid var(--hair)}
@@ -201,52 +207,39 @@ button,input,textarea{font:inherit;color:inherit}
 .facts svg{grid-row:span 2;width:32px;height:32px;stroke:var(--red);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .facts h3{font:700 1.45rem/1.05 var(--f-cond);font-style:italic;text-transform:uppercase}
 .facts p{color:var(--silver);font-size:.98rem}
-.feed{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0;border:1px solid rgba(255,255,255,.14);background:#050505;
-  clip-path:polygon(0 0,calc(100% - 40px) 0,100% 40px,100% 100%,40px 100%,0 calc(100% - 40px))}
-.feed-cam{position:relative;aspect-ratio:142/189;background:var(--machine) 85.2% 53.2%/290.6% auto no-repeat;filter:contrast(1.15) saturate(1.1)}
-.feed-cam::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px);pointer-events:none}
-.scan{position:absolute;left:0;right:0;height:22%;top:-22%;z-index:2;background:linear-gradient(transparent,rgba(255,0,0,.35));border-bottom:1px solid var(--red);animation:scan 3.6s linear infinite}
-@keyframes scan{to{top:100%}}
-.det{position:absolute;z-index:3;border:1.5px solid var(--white);transition:border-color .3s,background .3s}
-.det span{position:absolute;left:-1.5px;bottom:100%;white-space:nowrap;background:var(--white);color:var(--black);font:700 .58rem/1 var(--f-mono);padding:.28em .4em;letter-spacing:.03em;transition:background .3s,color .3s}
-.det.out{border-color:var(--red);border-style:dashed;background:rgba(255,0,0,.2)}
-.det.out span{background:var(--red);color:var(--white)}
-.feed-log{display:flex;flex-direction:column;justify-content:flex-end;gap:.15rem;padding:1rem 1rem 3rem;font:500 .74rem/1.55 var(--f-mono);color:var(--silver);min-width:0;overflow:hidden;border-left:1px solid rgba(255,255,255,.1)}
-.feed-log .hd{color:var(--white);font-weight:700;letter-spacing:.12em;margin-bottom:auto;padding-bottom:.8rem;border-bottom:1px solid rgba(255,255,255,.1)}
-.feed-log p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.feed-log p b{color:var(--white)}
-.feed-log p.hot b{color:var(--red)}
-.feed-cap{grid-column:1/-1;padding:.8rem 1rem 1rem;font-size:.78rem;color:var(--mute);border-top:1px solid rgba(255,255,255,.1)}
 @media (max-width:960px){.vision .wrap{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:520px){.feed{grid-template-columns:minmax(0,1fr)}.feed-log{border-left:0;border-top:1px solid rgba(255,255,255,.1);padding-bottom:1rem;min-height:200px}}
 
 /* versus slider */
 .versus{padding-block:clamp(6rem,11vw,9rem);background:var(--black)}
 .versus-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:2.5rem}
-.vs{position:relative;height:clamp(460px,52vw,600px);user-select:none;-webkit-user-select:none;touch-action:pan-y;--p:50%}
-.vs-side{position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr;padding:clamp(1.4rem,3.5vw,3rem);overflow:hidden}
+.vs{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 0 minmax(0,1fr)}
+.vs-side{position:relative;display:grid;grid-template-rows:auto 1fr;gap:2.5rem;padding:clamp(1.4rem,3.5vw,3rem);overflow:hidden;min-height:clamp(420px,40vw,520px)}
 .vs-old{background:#2a2a2a;color:#9b9b9b}
 .vs-old::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.025) 0 2px,transparent 2px 9px)}
-.vs-new{background:var(--red-ink);color:var(--white);clip-path:inset(0 0 0 var(--p))}
+.vs-new{background:var(--red-ink);color:var(--white)}
 .vs-new .ht-wrap{position:absolute;inset:0}
 .vs-side h3{position:relative;font-size:clamp(1.8rem,4vw,3.4rem)}
-.vs-old h3{text-align:left}
 .vs-new h3{text-align:right}
-.vs-rows{position:relative;display:grid;align-content:end;gap:0;width:min(46%,560px)}
-.vs-new .vs-rows{margin-left:auto}
+.vs-rows{position:relative;display:grid;align-content:end;gap:0}
 .vs-new .vs-rows li{grid-template-columns:minmax(0,1fr) 6.5rem;text-align:right}
 .vs-new .vs-rows li small{order:2}
+.vs-div{position:relative;z-index:2}
+.vs-div::before{content:"";position:absolute;top:0;bottom:0;left:-2px;width:4px;background:var(--chrome)}
+.vs-div b{position:absolute;top:50%;left:0;translate:-50% -50%;width:76px;height:76px;border-radius:50%;background:var(--black);border:3px solid var(--white);display:grid;place-items:center;
+  font:800 1.5rem/1 var(--f-mark);font-style:italic;color:var(--white);letter-spacing:-.02em}
 .vs-rows li{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:1rem;align-items:baseline;padding-block:.8rem;border-top:1px solid currentColor;border-color:rgba(255,255,255,.18)}
 .vs-rows small{font:600 .85rem/1.2 var(--f-cond);letter-spacing:.16em;text-transform:uppercase;opacity:.8}
 .vs-rows span{font:700 clamp(1.2rem,2.4vw,2rem)/1.05 var(--f-cond);font-style:italic;text-transform:uppercase}
 .vs-old .vs-rows span{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:rgba(255,0,0,.6)}
-.vs-handle{position:absolute;top:0;bottom:0;left:var(--p);width:0;z-index:4;pointer-events:none}
-.vs-handle::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:var(--chrome)}
-.vs-handle b{position:absolute;top:50%;left:0;translate:-50% -50%;width:76px;height:76px;border-radius:50%;background:var(--black);border:3px solid var(--white);display:grid;place-items:center;
-  font:700 .9rem/1 var(--f-cond);font-style:italic;letter-spacing:.1em;color:var(--white)}
-.vs input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:5}
-.vs input:focus-visible+.vs-handle b{outline:3px solid var(--white);outline-offset:4px}
-@media (max-width:640px){.vs-rows li,.vs-new .vs-rows li{grid-template-columns:minmax(0,1fr);gap:.2rem}.vs{height:560px}.vs-side h3{font-size:1.5rem}.vs-rows span{font-size:1.05rem}}
+@media (max-width:760px){
+  .vs{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 0 auto}
+  .vs-side{min-height:0;gap:1.5rem}
+  .vs-new h3{text-align:left}
+  .vs-rows li,.vs-new .vs-rows li{grid-template-columns:minmax(0,1fr);gap:.2rem;text-align:left}
+  .vs-new .vs-rows li small{order:0}
+  .vs-div::before{top:-2px;bottom:auto;left:0;right:0;width:auto;height:4px}
+  .vs-div b{top:0;left:50%;width:62px;height:62px;font-size:1.25rem}
+}
 
 /* venues (horizontal) */
 .venues{position:relative;background:var(--black);overflow:hidden}
@@ -303,7 +296,7 @@ fieldset.field{border:0;margin:0;padding:0}
 @media (max-width:480px){.two{grid-template-columns:minmax(0,1fr)}}
 
 /* finale */
-.finale{position:relative;overflow:clip;background:var(--black);padding-block:clamp(6rem,12vw,10rem) 0}
+.finale{position:relative;overflow:clip;background:var(--black);padding-block:clamp(3.5rem,7vw,5.5rem) 0}
 .finale .wrap{position:relative;display:grid;gap:2rem;justify-items:start}
 .finale .big{font-size:clamp(3.4rem,11vw,11rem)}
 .foot-mark{position:relative;margin-top:clamp(3rem,8vw,6rem);padding-left:var(--gl);padding-right:var(--gr)}
@@ -400,6 +393,8 @@ fieldset.field{border:0;margin:0;padding:0}
       <span class="kicker">The tech inside</span>
       <h2 class="mark h2">It sees<br><span class="red">everything</span><br>you take.</h2>
       <p class="lede">Cameras and shelf sensors track every item from the moment it leaves the shelf. No barcodes, no checkout, no honour system.</p>
+    </div>
+    <div class="vision-facts">
       <ul class="facts">
         <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 16s5-9 13-9 13 9 13 9-5 9-13 9S3 16 3 16z"/><circle cx="16" cy="16" r="4"/></svg>
           <h3>Item level vision</h3><p>Each product is recognised as it moves. Put one back and it drops off your total.</p></li>
@@ -409,19 +404,6 @@ fieldset.field{border:0;margin:0;padding:0}
           <h3>One tap, any basket</h3><p>Card, Apple Pay or Google Pay. Take one item or ten on a single tap.</p></li>
       </ul>
     </div>
-    <figure class="feed">
-      <div class="feed-cam" id="feedCam" aria-hidden="true">
-        <div class="scan"></div>
-        <div class="det" style="left:16%;top:7%;width:14%;height:46%"><span>COLA 0.97</span></div>
-        <div class="det" data-out style="left:40%;top:7%;width:15%;height:46%"><span>COLA 0.98</span></div>
-        <div class="det" style="left:25%;top:75%;width:46%;height:23%"><span>JUICE 0.95</span></div>
-        <div class="det" style="left:3%;top:75%;width:18%;height:23%"><span>SNACK 0.93</span></div>
-      </div>
-      <div class="feed-log" id="feedLog" aria-hidden="true">
-        <span class="hd">SESSION 4471</span>
-      </div>
-      <figcaption class="feed-cap">Illustration of one shopping session as the machine records it.</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -435,7 +417,7 @@ fieldset.field{border:0;margin:0;padding:0}
   <div class="wrap">
     <div class="versus-head">
       <h2 class="mark h2">Kill the<br><span class="red">old box.</span></h2>
-      <p class="lede">Drag the line. On the left, the vending machine your building has now. On the right, what replaces it.</p>
+      <p class="lede">On the left, the vending machine your building has now. On the right, what replaces it.</p>
     </div>
     <div class="vs" id="vs">
       <div class="vs-side vs-old">
@@ -447,6 +429,7 @@ fieldset.field{border:0;margin:0;padding:0}
           <li><small>Stock</small><span>Empty till someone complains</span></li>
         </ul>
       </div>
+      <div class="vs-div" aria-hidden="true"><b>VS</b></div>
       <div class="vs-side vs-new" id="vsNew">
         <div class="ht-wrap"><canvas class="ht" data-color="#0A0A0A" data-ox="1" data-oy="1" data-reach=".55"></canvas></div>
         <h3 class="mark">Elite Vend</h3>
@@ -457,9 +440,6 @@ fieldset.field{border:0;margin:0;padding:0}
           <li><small>Stock</small><span>Refilled before it runs out</span></li>
         </ul>
       </div>
-      <label class="sr" for="vsRange">Compare old vending with Elite Vend</label>
-      <input type="range" id="vsRange" min="0" max="100" value="50">
-      <div class="vs-handle" aria-hidden="true"><b>DRAG</b></div>
     </div>
   </div>
 </section>
@@ -532,7 +512,6 @@ fieldset.field{border:0;margin:0;padding:0}
 
 <!-- FINALE -->
 <footer class="finale">
-  <canvas class="ht" data-ox="0" data-oy="1" data-reach=".45" aria-hidden="true"></canvas>
   <div class="wrap">
     <p class="mark big">Your building<br>is <span class="red">hungry.</span></p>
     <a class="btn btn-red" href="#host" data-hover>Host a market <span class="arr">→</span></a>
@@ -611,26 +590,6 @@ fieldset.field{border:0;margin:0;padding:0}
   const pins = $$(".pin", mach); let pi = 0;
   setInterval(() => { pins[pi].classList.remove("on"); pi = (pi + 1) % pins.length; pins[pi].classList.add("on"); }, 1900);
 
-  /* ---------- vision feed log ---------- */
-  const log = $("#feedLog"), outBox = $("[data-out]");
-  const EV = [["DOOR", "OPEN", "card ok"], ["ITEM", "OUT", "cola / 4-2", 1], ["ITEM", "BACK", "cola / 4-2"], ["ITEM", "OUT", "water / 6-5", 1], ["DOOR", "CLOSED", "1 item"], ["CHARGE", "$2.25", "receipt sent"]];
-  let ei = 0, sec = 31;
-  function tick() {
-    const [a, b, c, hot] = EV[ei];
-    const p = document.createElement("p"); if (hot) p.className = "hot";
-    p.innerHTML = `12:04:${String(sec).padStart(2, "0")} <b>${a} ${b}</b> ${c}`;
-    log.appendChild(p);
-    while (log.querySelectorAll("p").length > 7) log.querySelector("p").remove();
-    outBox.classList.toggle("out", ei === 1);
-    ei = (ei + 1) % EV.length; sec = (sec + 3) % 60;
-  }
-  for (let k = 0; k < 4; k++) tick();
-  setInterval(tick, 1500);
-
-  /* ---------- versus slider ---------- */
-  const vs = $("#vs"), vr = $("#vsRange");
-  vr.addEventListener("input", () => vs.style.setProperty("--p", vr.value + "%"));
-
   /* ---------- form ---------- */
   const form = $("#hostForm"), msg = $("#formMsg");
   form.addEventListener("submit", async e => {
@@ -679,15 +638,6 @@ fieldset.field{border:0;margin:0;padding:0}
     G.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: "#venues", start: "top top", end: () => "+=" + dist(), pin: "#venuesPin", scrub: .6, invalidateOnRefresh: true } });
   });
   mm.add("(max-width: 899px)", () => { $("#venues").classList.add("noh"); return () => $("#venues").classList.remove("noh"); });
-
-  // versus: auto-sweep once when it enters, then hand control to the viewer
-  ST.create({ trigger: "#vs", start: "top 70%", once: true, onEnter: () => {
-    if (reduce) return;
-    const o = { p: 50 };
-    G.timeline().to(o, { p: 82, duration: .9, ease: "power2.inOut", onUpdate: () => { vs.style.setProperty("--p", o.p + "%"); vr.value = o.p; } })
-                .to(o, { p: 18, duration: 1.2, ease: "power2.inOut", onUpdate: () => { vs.style.setProperty("--p", o.p + "%"); vr.value = o.p; } })
-                .to(o, { p: 50, duration: .9, ease: "power2.inOut", onUpdate: () => { vs.style.setProperty("--p", o.p + "%"); vr.value = o.p; } });
-  }});
 
   // magnetic buttons
   if (fine && !reduce) $$("[data-hover].btn").forEach(b => {
